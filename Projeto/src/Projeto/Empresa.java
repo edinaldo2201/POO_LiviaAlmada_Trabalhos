@@ -147,13 +147,7 @@ public class Empresa {
 	}
 	
 	public void TrocarGerente (String setorS, String nome, int idade, String cargo, String sexo, int experiencia) {
-		if(verifCad(idade, sexo, experiencia)) {	
-			for(Setor setor: setores) {
-				if(funcionario.getId() == id) {
-					
-				}
-			}	
-		}
+		
 	}
 	
 	public void RemoverSetor(String setorS) {
