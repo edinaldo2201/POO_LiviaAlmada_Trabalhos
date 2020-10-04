@@ -4,21 +4,21 @@ import java.util.ArrayList;
 
 public class Empresa {
 	
-	private String nome;
+	private String nomeEmp;
 	private ArrayList<Funcionario> funcionarios;
 	private ArrayList<Setor> setores;
 	private int idFunc;
 	private int qtdFunc;
 	
-	public Empresa (String nome) {
-		setNome(nome);
+	public Empresa (String nomeEmp) {
+		setNomeEmp(nomeEmp);
 		funcionarios = new ArrayList<Funcionario>();
 		setores = new ArrayList<Setor>();
 		this.idFunc = 100;
 		this.qtdFunc = 0;
 	}
 	
-	public void addSetor(String setorS, String nome, int idade, String cargo, String sexo, int experiencia) {
+	public void addSetor(String setorS, Gerente gerente) {
 		boolean igual = false;
 		for(Setor setor: setores) {
 			if(setor.getNomeS() == setorS) {
@@ -29,11 +29,7 @@ public class Empresa {
 		if(igual)
 			System.out.println("O setor Informado já existe !!!");
 		else {
-			Gerente auxG = new Gerente(idFunc, nome, idade, cargo, sexo, experiencia);
-			funcionarios.add(auxG);
-			idFunc++;
-			setQtdFunc(1);
-			Setor auxS = new Setor(setorS, auxG);
+			Setor auxS = new Setor(setorS, gerente);
 			setores.add(auxS);
 			System.out.println("Setor de "+auxS.getNomeS()+" Criado com Sucesso!!!");
 		}		
@@ -42,7 +38,7 @@ public class Empresa {
 	public void cadFunc(String setorS, String nome, int idade, String cargo, String sexo, int experiencia) {
 		if(verifCad(idade, sexo, experiencia)) {
 			for(Setor setor: setores) {
-				if(setor.getNomeS() == setorS) {
+				if(setor.getNomeS() == setorS && setor.getGerente() != null) {
 					if(cargo == "Faxineiro") {
 						Faxineiro auxF = new Faxineiro(idFunc, nome, idade, cargo, sexo, experiencia);
 						setor.addFunc(auxF);
@@ -99,7 +95,7 @@ public class Empresa {
 	}
 	
 	public void ListFunc () {
-		System.out.println("Empresa:"+getNome());
+		System.out.println("Empresa:"+getNomeEmp());
 		System.out.println("\nFuncionários: \n"+funcionarios);
 	}
 	
@@ -135,15 +131,29 @@ public class Empresa {
 		}
 		
 		if(nFunc <= 0)
-			System.out.println("O Setor de "+setorS+" não possui funcionários além do Gerente!!!");
+			System.out.println("O Setor de "+setorS+" não possui funcionários!!!");
 		else if(nFunc == 1)
-			System.out.println("O Setor de "+setorS+" possui apenas 1 funcionário além do Gerente!!!");
+			System.out.println("O Setor de "+setorS+" não possui funcionários além do Gerente!!!");
 		else
-			System.out.println("O Setor de "+setorS+" possui "+nFunc+" funcionário além do Gerente!!!");
+			System.out.println("O Setor de "+setorS+" possui "+nFunc+" funcionários, incluindo o Gerente!!!");
 	}
 	
 	public void ListQtdTotalFunc () {
+		System.out.println("Total de Funcionários na empresa: "+getQtdFunc());
+	}
+	
+	public Gerente cadGerente(String nome, int idade, String cargo, String sexo, int experiencia) {
+		if(experiencia >= 50 && verifCad(idade, sexo, experiencia)) {
+			Gerente auxG = new Gerente(idFunc, nome, idade, cargo, sexo, experiencia);
+			funcionarios.add(auxG);
+			idFunc++;
+			setQtdFunc(1);
+			System.out.println("Gerente Cadastrado com sucesso!!!");
+			return auxG;
+		}else
+			System.out.println("O Gerente Não possui o Nível de experiência mínimo exigido!!!");
 		
+		return null;
 	}
 	
 	public void TrocarGerente (String setorS, String nome, int idade, String cargo, String sexo, int experiencia) {
@@ -152,25 +162,22 @@ public class Empresa {
 	
 	public void RemoverSetor(String setorS) {
 		for(Setor setor: setores) {
-			if(setor.getNomeS() == setorS) 
+			if(setor.getNomeS() == setorS && setor.getQtdFunc() == 0) 
 				setores.remove(setor);
 		}
 	}
 
-	public String getNome() {
-		return nome;
+	public void setNomeEmp(String nomeEmp) {
+		this.nomeEmp = nomeEmp;
 	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
+	public String getNomeEmp() {
+		return this.nomeEmp;
 	}
-
-	public int getQtdFunc() {
-		return qtdFunc;
-	}
-
 	public void setQtdFunc(int n) {
 		this.qtdFunc = qtdFunc+n;
+	}
+	public int getQtdFunc() {
+		return qtdFunc;
 	}
 	
 

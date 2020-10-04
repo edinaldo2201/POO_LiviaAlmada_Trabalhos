@@ -17,6 +17,7 @@ public class Setor {
 	
 	public void addFunc(Funcionario func) {
 		funcionarios.add(func);
+		setQtdFunc(1);
 	}
 	
 	
@@ -28,20 +29,8 @@ public class Setor {
 		
 	}
 	
-	public void show(){
-		
-	}
-	
 	public void printFuncCargo(String cargo) {
 		
-	}
-	
-	public void searchFunc(String nome) {
-		
-	}
-	
-	public int qtdSetor(){
-		return 0;
 	}
 	
 	public void updGerente(Gerente gerente) {
@@ -59,12 +48,14 @@ public class Setor {
 	public Gerente getGerente() {
 		return gerente;
 	}
-
-	public void setGerente(Gerente gerente) {
-		this.gerente = gerente;
-	}
 	
 	public String toString() {
+		if(getGerente() == null)
+			return "Setor de "+getNomeS()+
+					 "\nGerente do Setor : Sem Gerente"+
+					 "\nFuncionarios: "+
+					 "\n"+funcionarios+"\n";
+		else
 		return "Setor de "+getNomeS()+
 			 "\nGerente do Setor : "+gerente.getNome()+
 			 "\nFuncionarios: "+
@@ -75,8 +66,8 @@ public class Setor {
 		return qtdFunc;
 	}
 
-	public void setQtdFunc() {
-		this.qtdFunc = qtdFunc+1;
+	public void setQtdFunc(int n) {
+		this.qtdFunc = qtdFunc+n;
 	}
 
 }

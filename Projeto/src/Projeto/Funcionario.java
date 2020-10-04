@@ -7,7 +7,7 @@ public class Funcionario {
 	private String cargo;
 	private String sexo;
 	private int experiencia;
-	private float salario;
+	protected float salario;
 	
 	public Funcionario(int id, String nome, int idade, String cargo, String sexo, int experiencia) {
 		this.setId(id);
@@ -16,11 +16,7 @@ public class Funcionario {
 		this.setCargo(cargo);
 		this.setSexo(sexo);
 		this.setExperiencia(experiencia);	
-		this.setSalario(0.0f);
-	}
-	
-	public void setSalario() {
-		
+		this.setSalario(experiencia);
 	}
 	
 	public String getCargo() {
@@ -75,8 +71,8 @@ public class Funcionario {
 		return salario;
 	}
 
-	public void setSalario(float salario) {
-		this.salario = salario;
+	public void setSalario(int experiencia) {
+		
 	}
 	
 	public String toString() {
